@@ -1,0 +1,37 @@
+name: Package and Release Addon
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0, v2.0, etc.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install WoWPackager (LuaRocks)
+        run: |
+          sudo apt-get update
+          sudo apt-get install luarocks
+          luarocks install wowpackager
+
+      - name: Get Version from Tag
+        id: get_version
+        run: echo "::set-output name=VERSION::${GITHUB_REF##*/}"
+
+      - name: Build Addon Package with Version
+        run: |
+          wowpackager --pkgmeta .pkgmeta --output HungarianMemeCaller-${{ steps.get_version.outputs.VERSION }}.zip
+
+      - name: Upload to CurseForge
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+        run: |
+          curl -X POST "https://wow.curseforge.com/api/projects/855370/upload-file" \
+          -H "x-api-token: $CF_API_TOKEN" \
+          -F "file=@HungarianMemeCaller-${{ steps.get_version.outputs.VERSION }}.zip" \
+          -F "metadata={\"changelog\": \"Automated release\", \"releaseType\": \"release\", \"gameVersions\": [\"11.0.5\"]}"

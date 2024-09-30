@@ -1,0 +1,8 @@
+package-as: MyAddon
+ignore:
+  - .git/
+  - .github/
+  - .vscode/
+  - README.md
+  - LICENSE
+  - "*.bak"
