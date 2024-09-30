@@ -1,4 +1,4 @@
-package-as: MyAddon
+package-as: HungarianMemeCaller
 ignore:
   - .git/
   - .github/
