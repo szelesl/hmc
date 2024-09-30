@@ -1,16 +1,14 @@
-## Interface: 100205
+## Interface: 110005
 ## Title: HungarianMemeCaller
 ## SavedVariables: HMCMutedVar
 ## IconTexture: Interface/ICONS/spell_misc_emotionhappy.blp
 ## Notes: /hmc | Plays sound file for all addon users in the group.
-## Author: Delegaar
-## Version: 0.4.7
+## Author: Delegaar, Noelah
+## Version: 0.4.9-beta
 
 Libs\LibStub\LibStub.lua
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
-
-Images\damu.tga
 
 HMCCategorizedSounds.lua
 HungarianMemeCaller.lua
