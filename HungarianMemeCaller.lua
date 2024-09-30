@@ -1,7 +1,34 @@
 local _, hmc_ns = ...
 local hmc_sounds = hmc_ns.hmc_sounds
+local prefix = "hmemecaller"
+C_ChatInfo.RegisterAddonMessagePrefix(prefix)
 hmc_ns.hmc_CD = 0
-hmc_ns.hmc_muted = false;
+hmc_ns.hmc_muted = false
+
+function sendAddonMessage(sound) 
+    if hmc_ns.hmc_muted ~= true and GetTime() > hmc_ns.hmc_CD then
+        local chatType, target = "WHISPER", UnitName("player")
+
+        if IsInGroup(LE_PARTY_CATEGORY_HOME) then
+            chatType = "RAID"
+            table = nil
+        elseif IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then
+            chatType = "INSTANCE_CHAT"
+            target = nil
+        elseif IsInGroup() then
+            chatType = "PARTY"
+            target = nil
+        end
+
+        if target then
+            C_ChatInfo.SendAddonMessage(prefix, sound, chatType, target)
+        else
+            C_ChatInfo.SendAddonMessage(prefix, sound, chatType)
+        end
+
+        hmc_ns.hmc_CD = GetTime() + 3
+    end
+end
 
 local function listCategories()
     for category in pairs(hmc_sounds) do
@@ -10,7 +37,6 @@ local function listCategories()
 end
 
 local function listTracks(category)
-    print("debug")
     for command, data in pairs(hmc_sounds[category]) do
         if command ~= "image_path" and command ~= "display" then
             print("/hmc " .. command .. " - Description: " .. data.description)
@@ -20,56 +46,54 @@ end
 
 -- Function to play the sound based on command
 local function playTrack(soundKey)
-    for category, categoryData in pairs(hmc_sounds) do
-        for soundName, soundData in pairs(categoryData) do
-            if soundName == soundKey then
-                PlaySoundFile(soundData.path, "Master")
-                hmc_ns.hmc_CD = GetTime() + 3
-                return
+    if not hmc_ns.hmc_muted then
+        for category, category_sounds in pairs(hmc_sounds) do
+            local sound = category_sounds[soundKey] -- changed 'track' to 'soundKey'
+            if sound then
+                PlaySoundFile(sound.path, "Master")
+                break -- Exit after playing the first matched sound
             end
         end
     end
-    print("Sound not found for key: " .. soundKey)
 end
 
--- Slash command handler
-local function slashCmdHandler(cmd)
-    local arg1, arg2 = string.match(cmd, "(%S+)%s*(.*)")
+local function slashCmdHandler(msg)
+    local args = {}
+    for word in msg:gmatch("%S+") do
+        table.insert(args, word)
+    end
 
-    if not arg1 and not arg2 then
+    if #args == 0 then
         listCategories()
-    elseif arg1 and string.len(arg1) > 0 then
-        if arg1 == "list" then
-            if arg2 and string.len(arg2) > 0 then
-                listTracks(arg2)
-            end
-        else
-            playTrack(arg1)
-        end
-    elseif arg1 == "mute" then
-        hmc_muted = true
-        print("HMC muted.")
-    elseif arg1 == "unmute" then
-        hmc_muted = false
-        print("HMC unmuted.")
+    elseif #args == 1 then
+        sendAddonMessage(args[1])
+    elseif #args == 2 and args[1] == "list" then
+        listTracks(args[2])
     else
-        listCategories()
+        print("Invalid command. Use /hmc to list categories or /hmc list [category_name] to list sounds.")
     end
 end
 
-local function OnEvent(self, event, prefix, msg, ...)
+local function OnEvent(self, event, ...)
     if event == "CHAT_MSG_ADDON" then
-        slashCmdHandler(msg)
-    elseif event == "ADDON_LOADED" and prefix == "HungarianMemeCaller" then
-        hmc_muted = HMCMutedVar
-        SLASH_HMC_SOUND1 = '/hmc';
-        SlashCmdList['HMC_SOUND'] = slashCmdHandler
+        local prefix, msg = ...
+        if prefix == "hmemecaller" then
+            playTrack(msg)
+        end
+    elseif event == "ADDON_LOADED" then
+        hmc_ns.hmc_muted = HMCMutedVar
     elseif event == "PLAYER_LOGOUT" then
-        HMCMutedVar = hmc_muted
+        HMCMutedVar = hmc_ns.hmc_muted
     end
 end
 
 local frame = CreateFrame("Frame")
+frame:RegisterEvent("CHAT_MSG_ADDON")
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGOUT")
 frame:SetScript("OnEvent", OnEvent)
+
+SLASH_HMC1 = '/hmc' -- Correctly set the first slash command
+SlashCmdList['HMC'] = function(msg)
+    slashCmdHandler(msg)
+end

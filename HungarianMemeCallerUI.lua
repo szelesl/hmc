@@ -137,10 +137,7 @@ for category, data in pairs(hmc_sounds) do
                 table.insert(sounds, soundDescription)
 
                 soundDataItem:SetScript("OnMouseUp", function()
-                    if hmc_ns.hmc_muted ~= true and GetTime() > hmc_ns.hmc_CD then
-                        PlaySoundFile(soundData.path, "Master")
-                        hmc_ns.hmc_CD = GetTime() + 3
-                    end
+                    sendAddonMessage(key)
                 end)
 
                 -- Increment the offset for the next sound
