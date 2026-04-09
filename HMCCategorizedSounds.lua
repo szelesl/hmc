@@ -2346,5 +2346,85 @@ hmc_ns.hmc_sounds = {
             ["description"] = "Ameddig tart a bor, addig megyek",
             ["isNew"] = true
         }
+    },
+    ["fa"] = {
+        ["display"] = "Fa",
+        ["image_path"] = "Interface\\AddOns\\HungarianMemeCaller\\Images\\holafa.blp",
+        ["bozotba"] = {
+            ["display"] = "Bozótba",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\bozotba.mp3",
+            ["description"] = "Ott van a bozótba szedd összefele!",
+            ["isNew"] = true
+        },
+
+        ["fulzsir"] = {
+            ["display"] = "Fülzsír",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\fulzsir.mp3",
+            ["description"] = "Csoportosan fröcskölték a fülzsírjukat a kislány ruhájára!",
+            ["isNew"] = true
+        },
+
+        ["gyerunk_a_bokorba"] = {
+            ["display"] = "Gyerünk a bokorba",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\gyerunk_a_bokorba.mp3",
+            ["description"] = "Na, álljál föl azt gyerünk a bokorba!",
+            ["isNew"] = true
+        },
+
+        ["hogy_az_anyadba"] = {
+            ["display"] = "Hogy az anyádba?",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\hogy_az_anyadba.mp3",
+            ["description"] = "Hogy az anyádba nézel ki megint te szemétláda?!",
+            ["isNew"] = true
+        },
+
+        ["holafa"] = {
+            ["display"] = "Hol a fa?",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\hogy_az_anyadba.mp3",
+            ["description"] = "Hol a fa főnök?",
+            ["isNew"] = true
+        },
+
+        ["kedves_gyerekek"] = {
+            ["display"] = "Kedves gyerekek",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\kedves_gyerekek.mp3",
+            ["description"] = "Kedves gyerekek!",
+            ["isNew"] = true
+        },
+
+        ["kuklopsz"] = {
+            ["display"] = "Küklopsz",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\kuklopsz.mp3",
+            ["description"] = "A küklopsz belenyúlt a saját szemébe és ráfolyatta a kislányra!",
+            ["isNew"] = true
+        },
+
+        ["lehugyoz"] = {
+            ["display"] = "Lehugyoz a fa!",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\lehugyoz.mp3",
+            ["description"] = "Segítség, lehugyoz a fa!",
+            ["isNew"] = true
+        },
+
+        ["mit_csinalsz"] = {
+            ["display"] = "Mit csinálsz?",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\mit_csinalsz.mp3",
+            ["description"] = "De mit csinálsz?!",
+            ["isNew"] = true
+        },
+
+        ["sikitva_hanytak"] = {
+            ["display"] = "Hánytak",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\sikitva_hanytak.mp3",
+            ["description"] = "Sikítva hánytak a teherautóra",
+            ["isNew"] = true
+        },
+
+        ["sikitva_menekult"] = {
+            ["display"] = "Sikítva menekült",
+            ["path"] = "Interface\\AddOns\\HungarianMemeCaller\\Sounds\\Fa\\sikitva_menekult.mp3",
+            ["description"] = "A kislány sikítva menekült a fák meg futottak utána",
+            ["isNew"] = true
+        },
     }
 }
